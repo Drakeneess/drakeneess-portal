@@ -1,0 +1,232 @@
+.datastory-container {
+  position: relative;
+  background: black;
+  color: #f3f3f3;
+  min-height: 100vh;
+  padding: 2rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+/* NUEVO: Capa de oscuridad superior con máscara */
+.datastory-container::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 0, 0, 0) 10%,
+    rgba(0, 0, 0, 0.6) 50%,
+    rgba(0, 0, 0, 0.9) 85%
+  );
+  mix-blend-mode: multiply;
+}
+
+/* Iluminación roja desde abajo */
+.abyss-gradient {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: radial-gradient(ellipse at bottom, rgba(255, 60, 60, 0.4), transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+  animation: pulse-abyss 8s ease-in-out infinite alternate;
+}
+
+@keyframes pulse-abyss {
+  0% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.datastory-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #ff4c4c;
+  margin-bottom: 2rem;
+  font-family: 'Cinzel', serif;
+  z-index: 10;
+  position: relative;
+  text-shadow: 0 0 8px #ff7777, 0 0 20px #ff0000;
+}
+
+.datastory-content {
+  position: relative;
+  z-index: 10;
+  background-color: rgba(30, 0, 0, 0.55);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(5px) brightness(1.2) contrast(1.2);
+  max-width: 1000px;
+  margin: 0 auto;
+  box-shadow: 0 0 30px rgba(255, 100, 100, 0.4), 0 0 50px rgba(255, 0, 0, 0.2);
+  transition: filter 0.3s ease;
+}
+
+.datastory-content:hover {
+  filter: brightness(1.35) contrast(1.3);
+}
+
+.datastory-content h1, .datastory-content h2, .datastory-content h3 {
+  color: #ff7f7f;
+  text-shadow: 0 0 5px #ff4c4c;
+}
+
+.datastory-content p, .datastory-content li {
+  line-height: 1.8;
+  font-size: 1.05rem;
+  color: #fdf0f0;
+}
+
+.volver-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  z-index: 10;
+  position: relative;
+}
+
+.datastory-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  z-index: 2;
+  position: relative;
+  max-width: 1000px;
+  margin-inline: auto;
+}
+
+.relato-button {
+  background: rgba(50, 0, 0, 0.3);
+  border: 1px solid #8b0000;
+  color: #ff5c5c;
+  font-family: 'Cinzel', serif;
+  padding: 1.25rem;
+  border-radius: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  backdrop-filter: blur(3px);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.05);
+  animation: appear-abyss 1s ease forwards;
+  opacity: 0;
+}
+
+.relato-button:hover {
+  background: rgba(120, 0, 0, 0.4);
+  border-color: #ff5555;
+  color: #ffffff;
+  box-shadow: 0 0 20px rgba(255, 50, 50, 0.5), 0 0 10px rgba(255, 0, 0, 0.3);
+  transform: scale(1.03);
+}
+
+@keyframes appear-abyss {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* === BLOQUES DE CÓDIGO === */
+.datastory-content pre {
+  background-color: #111111;
+  color: #d6d6d6;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  font-size: 0.9rem;
+  font-family: 'Fira Code', monospace;
+  box-shadow: 0 0 12px rgba(255, 100, 100, 0.1);
+  border: 1px solid #292929;
+}
+
+/* === CÓDIGO EN LÍNEA === */
+.datastory-content code {
+  background-color: #1e1e1e;
+  color: #ffcccc;
+  padding: 0.2em 0.4em;
+  border-radius: 0.3rem;
+  font-family: 'Fira Code', monospace;
+}
+
+/* === OUTPUTS === */
+.output_subarea, .output_area {
+  background-color: #2b0a0a !important;
+  color: #ffe6e6 !important;
+  border-left: 4px solid #ff4444;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.2);
+}
+
+/* === Evita bordes blancos de Jupyter === */
+div.output_wrapper {
+  border: none !important;
+}
+
+/* === Forzar color claro para todos los textos === */
+.datastory-content,
+.datastory-content * {
+  color: #f0f0f0 !important;
+}
+
+/* === Mejorar contraste para outputs de texto === */
+.output_area pre,
+.output_area * {
+  color: #ffd6d6 !important;
+}
+
+/* === Asegurar contraste en celdas markdown (a veces usan span con color negro) === */
+.datastory-content span[style*="color: #000"],
+.datastory-content span[style*="color:black"] {
+  color: #f0f0f0 !important;
+}
+
+/* === Bordes visibles si existían === */
+.datastory-content table,
+.datastory-content th,
+.datastory-content td {
+  border-color: #444 !important;
+  color: #f3f3f3 !important;
+}
+
+/* === Bloques de código y outputs (estilo terminal oscura) === */
+.datastory-content pre,
+.datastory-content code {
+  background-color: #1a1a1a !important;
+  color: #e0e0e0 !important;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.1);
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+/* === Eliminar fondo blanco forzado de outputs === */
+.datastory-content .jp-OutputArea-output pre {
+  background-color: #1a1a1a !important;
+  color: #ffd6d6 !important;
+}
+
+/* === Ajuste para títulos con emojis o símbolos científicos === */
+.datastory-content h3 {
+  color: #ff3c3c !important;
+}
+

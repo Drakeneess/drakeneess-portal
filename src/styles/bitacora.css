@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+.bitacora-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #0a0000, #120000);
+  padding: 2rem;
+  font-family: 'Cinzel', serif;
+  color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bitacora-title {
+  font-size: 2.5rem;
+  color: #a70000;
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px #550000;
+}
+
+.bitacora-table {
+  width: 100%;
+  max-width: 90rem;
+  border-collapse: collapse;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr 2fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.bitacora-header {
+  display: contents;
+  font-weight: bold;
+  background-color: #2f0000;
+  color: #ffeded;
+  text-transform: uppercase;
+  border-bottom: 2px solid #a70000;
+}
+
+.bitacora-row {
+  display: contents;
+  background-color: #17000099;
+  backdrop-filter: blur(2px);
+  transition: background 0.3s ease;
+}
+
+.bitacora-row:hover {
+  background-color: #300000aa;
+}
+
+.bitacora-row span,
+.bitacora-header span {
+  padding: 0.75rem;
+  border: 1px solid #80000055;
+  word-break: break-word;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.bitacora-book-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  z-index: 1; /* Para estar por encima del ::before de ambient-light */
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+
+.bitacora-book {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.bitacora-page {
+  background: url('/textures/124561.jpg'); /* asegúrate de que exista en /public/textures/ */
+  background-size: cover;
+  background-position: center;
+  padding: 2rem;
+  font-family: 'Cinzel', serif;
+  color: #1a1a1a;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  height: 100%;
+  overflow-y: auto;
+
+  /* Sombras suaves como si fuera un pliego */
+  box-shadow: inset 0 0 15px #00000033, 0 0 10px #00000066;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=EB+Garamond&display=swap');
+
+.bitacora-page h2 {
+  font-family: 'EB Garamond', serif;
+  font-size: 1.75rem;
+  color: #760101;
+  border-bottom: 1px solid #a70000;
+  padding-bottom: 0.5rem;
+}
+
+.bitacora-page::-webkit-scrollbar {
+  width: 8px;
+}
+
+.bitacora-page::-webkit-scrollbar-track {
+  background: #e8e4d0;
+  border-left: 1px solid #aaa;
+}
+
+.bitacora-page::-webkit-scrollbar-thumb {
+  background-color: #a70000;
+  border-radius: 4px;
+  border: 1px solid #4d0000;
+}
+
+.bitacora-page::-webkit-scrollbar-thumb:hover {
+  background-color: #8b0000;
+}
+
+.portada {
+  background: url('/textures/1600.jpg');
+  background-size: cover;
+  color: #ffeedd;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Cinzel', serif;
+  font-size: 1.2rem;
+  text-align: center;
+}
+
+.portada h1 {
+  font-size: 2.5rem;
+  color: #763e3e;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 8px #a70000;
+}
+
+.portada .autor {
+  font-size: 1rem;
+  font-style: italic;
+  color: #ffaaaa;
+}
+
+.indice {
+  background: #fefae0;
+  color: #1a1a1a;
+  font-family: 'Cinzel', serif;
+  padding: 2rem;
+}
+
+.indice ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.indice li {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px dashed #a70000;
+  padding-bottom: 0.3rem;
+}
+
+.contraportada {
+  background:url('/textures/1600.jpg');
+  color: #ffeeee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.ambient-light {
+  position: fixed;
+  inset: 0;
+  background: #2b1919;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  z-index: 0; /* <- Se queda así */
+}
+
+.ambient-light::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 244, 214, 0.2) 0%,
+    rgba(255, 214, 150, 0.15) 20%,
+    rgba(120, 30, 10, 0.25) 50%,
+    rgba(30, 0, 0, 0.85) 75%,
+    rgba(10, 0, 0, 0.95) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: multiply;
+  animation: candle-flicker 7s infinite ease-in-out;
+}
+
+
+@keyframes candle-flicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.92; }
+  50% { opacity: 0.95; }
+  55% { opacity: 0.9; }
+  60% { opacity: 0.96; }
+  80% { opacity: 0.93; }
+}

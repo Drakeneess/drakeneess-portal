@@ -1,0 +1,297 @@
+:root {
+  --fondo-absoluto: #0a0000;
+  --fondo-bruma: rgba(26, 0, 0, 0.9);
+  --bordes-sangre: #3a0000;
+  --resplandor-sangre: #ff0033;
+  --texto-abismo: rgba(240, 240, 240, 0.85);
+  --texto-muerto: #888;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--fondo-absoluto);
+  color: var(--texto-abismo);
+  font-family: 'Merriweather', serif;
+  scroll-behavior: smooth;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.relatos-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 2rem;
+  background: var(--fondo-bruma);
+  border: 1px solid var(--bordes-sangre);
+  border-radius: 1rem;
+  box-shadow: 0 0 50px rgba(255, 0, 51, 0.1);
+  backdrop-filter: blur(2px);
+  position: relative;
+  z-index: 1;
+  overflow-y: auto;
+  max-width: 800px;
+  height: 100vh;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE y Edge */
+}
+.relatos-container::-webkit-scrollbar {
+  display: none;
+}
+
+.relatos-titulo {
+  font-size: 2.5rem;
+  text-align: center;
+  color: var(--resplandor-sangre);
+  margin-bottom: 2rem;
+  text-shadow: 0 0 10px var(--resplandor-sangre);
+}
+
+.relatos-lista {
+  list-style: none;
+  padding-left: 0;
+}
+
+.relato-item {
+  background: rgba(0, 0, 0, 0.6); /* Fondo mucho más oscuro */
+  border-left: 4px solid var(--resplandor-sangre); /* Mantiene el borde rojo */
+  color: rgba(255, 255, 255, 0.9); /* Texto más claro sobre el fondo negro */
+  margin-bottom: 1rem;
+  padding: 0.75rem 1.25rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+  backdrop-filter: blur(1px);
+}
+
+.relato-item:hover {
+  background-color: rgba(20, 0, 0, 0.9); /* Aún más oscuro al pasar el cursor */
+  transform: translateX(6px);
+  color: #fff;
+}
+
+.relato-item {
+  box-shadow: inset 0 0 10px rgba(255, 0, 50, 0.05);
+}
+
+
+.relato-detalle h2 {
+  color: var(--resplandor-sangre);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 5px var(--resplandor-sangre);
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 1rem;
+  scroll-behavior: smooth;
+}
+
+.poema-cuerpo {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  width: 80vh;
+}
+
+.poema-scroll-wrapper {
+  height: 80vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  position: relative;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE y Edge */
+  display: flex;
+  justify-content: center;   /* Centrado horizontal */
+}
+
+.poema-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.estrofa {
+  border-left: 3px solid var(--bordes-sangre);
+  padding-left: 1rem;
+}
+
+.verso {
+  margin: 0.2rem 0;
+  font-style: italic;
+  color: var(--texto-abismo);
+  opacity: 0;
+  animation: aparecer 0.5s forwards;
+}
+
+@keyframes aparecer {
+  to {
+    opacity: 1;
+  }
+}
+
+.cursor {
+  display: inline-block;
+  width: 1ch;
+  color: var(--resplandor-sangre);
+  animation: parpadear 1s infinite steps(2, start);
+}
+
+@keyframes parpadear {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+
+.poema-imagen {
+  width: 100%;
+  max-width: 600px;
+  margin: 2rem auto;
+  display: block;
+  opacity: 0;
+  transform: scale(1.2) blur(5px);
+  filter: brightness(0.2);
+  animation:
+    abisal-aparece 2.5s ease-out forwards,
+    imagen-pulso 3s ease-in-out infinite;
+  animation-delay: 0s, 2.5s; /* primero aparece, luego pulsa */
+}
+
+@keyframes abisal-aparece {
+  0% {
+    opacity: 0;
+    transform: scale(1.2) blur(5px);
+    filter: brightness(0.2);
+  }
+  50% {
+    opacity: 0.5;
+    filter: brightness(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) blur(0);
+    filter: brightness(1);
+  }
+}
+
+@keyframes imagen-pulso {
+  0%, 100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  50% {
+    filter: brightness(1.08);
+    transform: scale(1.015);
+  }
+}
+
+
+.volver-button {
+  background-color: #220000;
+  color: var(--texto-abismo);
+  border: 1px solid var(--resplandor-sangre);
+  padding: 0.4rem 1rem;
+  margin-bottom: 2rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.volver-button:hover {
+  background-color: #400000;
+  box-shadow: 0 0 10px var(--resplandor-sangre);
+}
+
+.bruma-negra {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 100%);
+  animation: bruma-moverse 60s ease-in-out infinite alternate;
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+  backdrop-filter: blur(2px);
+}
+
+@keyframes bruma-moverse {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-3vw, -2vh) scale(1.02);
+  }
+  100% {
+    transform: translate(3vw, 2vh) scale(1);
+  }
+}
+
+button {
+  display: block;
+  margin: 1rem auto;
+  text-align: center;
+}
+
+.boton-skip-visible {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  background: none;
+  border: none;
+  color: rgba(255, 0, 51, 0.3);
+  cursor: pointer;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+  font-style: italic;
+  text-transform: lowercase;
+  pointer-events: auto;
+}
+
+.boton-skip-visible:hover {
+  opacity: 0.9;
+  color: #ff0033;
+  text-shadow: 0 0 4px #ff0033;
+}
+
+/* Alineado al cursor */
+.verso {
+  position: relative;
+}
+
+.verso .boton-skip {
+  left: 0;
+  bottom: 0;
+}
+
+.ui-final {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  opacity: 1;
+  z-index: 10;
+  position: relative;
+  margin-top: 2rem;
+}
+.volver-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  background-color: #222;
+  color: #fff;
+  border: 1px solid #444;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+.volver-btn:hover {
+  background-color: #333;
+}
+
+@keyframes aparecer-suave {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

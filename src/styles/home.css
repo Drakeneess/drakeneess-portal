@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Impide desplazamiento */
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: 'Cinzel', serif;
+  background-color: black;
+}
+
+.main-container {
+  padding-block: clamp(1rem, 4vh, 2.5rem);
+  gap: clamp(1rem, 3vh, 2rem);
+}
+
+.main-container {
+  height: 100vh; /* Asegura que ocupe toda la pantalla */
+  max-height: 100vh;
+  overflow: hidden; /* Bloquea scroll interno */
+  box-sizing: border-box;
+}
+
+/* Contenedor principal */
+.main-container {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;;
+  color: white;
+  background: radial-gradient(ellipse at center, #000000 0%, #0a0000 70%, #000000 100%);
+  overflow: hidden;
+}
+
+.main-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, #220000 0%, #2f0000 70%, #120000 100%);
+  opacity: 0;
+  animation: fade-red 20s ease-in-out infinite;
+  z-index: -1;
+}
+
+@keyframes fade-red {
+  0%, 100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Título principal */
+.main-title {
+  font-family: 'UnifrakturCook', cursive;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #800020; /* Guindo */
+  text-align: center;
+  text-shadow: 0 0 5px #300000, 0 0 15px #5c0000;
+  animation: title-fade-in 2s ease forwards 1s, bleed-text 6s ease-in-out infinite alternate;
+  opacity: 0;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .main-title {
+    font-size: 3.5rem;
+  }
+}
+
+@keyframes title-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes bleed-text {
+  0% {
+    text-shadow: 0 0 5px #300000, 0 0 15px #5c0000;
+  }
+  100% {
+    text-shadow: 0 0 10px #5c0000, 0 0 20px #8b0000;
+  }
+}
+
+/* Subtítulo / párrafo */
+.main-subtitle {
+  font-size: 1.125rem;
+  color: #d1d5db;
+  text-align: center;
+  max-width: 42rem;
+}
+
+@media (min-width: 768px) {
+  .main-subtitle {
+    font-size: 1.25rem;
+  }
+}
+
+/* Texto introductorio */
+.intro-drakeneess {
+  font-family: 'Cinzel', serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #f3f4f6;
+  text-align: center;
+  max-width: 42rem;
+  margin-top: 1.5rem;
+  line-height: 2;
+  position: relative;
+  z-index: 20;
+  opacity: 0;
+  animation: fadeInOnly 3s ease forwards 2s;
+}
+
+@keyframes fadeInOnly {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Botones */
+@keyframes button-breath {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes button-fade-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap; /* Permite saltar a otra línea */
+  justify-content: center;
+  gap: 1rem;
+  max-width: 90vw;
+  margin-top: 1rem;
+  position: relative;
+  z-index: 60; /* Asegúrate de que sea mayor que el de .bruma-negra */
+}
+
+
+@media (min-width: 768px) {
+  .button-group {
+    flex-direction: row;
+  }
+}
+
+.link-button {
+  border: 1px solid #dc2626;
+  color: #dc2626;
+  padding: 0.5rem 1.5rem;
+  border-radius: 0.75rem;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: 
+    button-fade-in 1s ease forwards,
+    button-breath 4s ease-in-out infinite,
+    spark-flicker 8s infinite ease-in-out;
+  transition: all 0.3s ease;
+}
+
+
+.link-button:nth-child(1) {
+  animation-delay: 0s, 1s;
+}
+
+.link-button:nth-child(2) {
+  animation-delay: 0.5s, 1.5s;
+}
+
+.link-button:nth-child(3) {
+  animation-delay: 1s, 2s;
+}
+
+.link-button:hover {
+  border-color: #22d3ee;
+  color: #22d3ee;
+  animation-play-state: paused;
+  transform: scale(1.1);
+}
+
+/* Footer */
+.footer-text {
+  margin-top: 5rem;
+  font-size: 0.875rem;
+  font-style: italic;
+  text-align: center;
+  color: #6b7280;
+}
+
+@keyframes spark-flicker {
+  0%, 100% {
+    box-shadow: none;
+    text-shadow: none;
+    filter: none;
+  }
+  10% {
+    box-shadow: 0 0 25px #ffffffaa, 0 0 35px #eeeeee88;
+    text-shadow: 0 0 10px #ffffffaa;
+    filter: brightness(1.6);
+  }
+  30% {
+    box-shadow: 0 0 15px #ffffff88;
+    text-shadow: 0 0 5px #ffffff88;
+    filter: brightness(1.3);
+  }
+  70% {
+    box-shadow: 0 0 30px #ffffffdd;
+    text-shadow: 0 0 15px #ffffffcc;
+    filter: brightness(1.8);
+  }
+}
