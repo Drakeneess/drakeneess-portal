@@ -108,7 +108,7 @@ export default function RelatoDetalle({ id, onFinish }: Props) {
         behavior: 'smooth',
         });
     }
-    }, [charIndex, versoIndex, estrofaIndex, texto, loading, visibleEstrofas, completo]);
+    }, [charIndex, versoIndex, estrofaIndex, texto, loading, visibleEstrofas, completo, onFinish]);
 
   if (loading) return <p className="verso">Cargando relato...</p>;
 

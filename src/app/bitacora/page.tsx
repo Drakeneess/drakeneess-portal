@@ -7,6 +7,13 @@ import { db } from '@/lib/firebase'; // Ajusta la ruta si es diferente
 import '../../styles/bitacora.css';
 import VolverInicioButton from '../../components/VolverInicioButton';
 
+// Define el tipo del objeto bookRef
+interface PageFlipRef {
+  pageFlip: () => {
+    flip: (index: number) => void;
+  };
+}
+
 type Entry = {
   titulo: string;
   pensamiento: string;
@@ -20,7 +27,7 @@ type Entry = {
 
 
 export default function BitacoraPage() {
-  const bookRef = useRef<any>(null);
+  const bookRef = useRef<PageFlipRef | null>(null);
   const [entries, setEntries] = useState<Entry[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);

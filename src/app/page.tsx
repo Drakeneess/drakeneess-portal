@@ -59,7 +59,7 @@ export default function Home() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.5, duration: 1 }}
         >
-          "No es un portal para todos. Pero si sientes que el mundo ya no es suficiente, estás en el lugar correcto."
+          &quot;No es un portal para todos. Pero si sientes que el mundo ya no es suficiente, estás en el lugar correcto.&quot;
         </motion.footer>
       </main>
     </>
