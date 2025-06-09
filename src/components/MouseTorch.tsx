@@ -1,6 +1,5 @@
 'use client';
 
-import { rgba } from 'framer-motion';
 import { useEffect, useState } from 'react';
 
 export default function MouseTorch() {

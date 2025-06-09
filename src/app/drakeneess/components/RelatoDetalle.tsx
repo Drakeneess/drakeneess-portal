@@ -3,10 +3,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '@/lib/firebase';
+import Image from 'next/image';
 
 type Props = {
   id: string;
   onFinish?: () => void;
+};
+
+type RelatoData = {
+  titulo: string;
+  url: string;
+  texto: string[];
 };
 
 export default function RelatoDetalle({ id, onFinish }: Props) {
@@ -30,7 +37,7 @@ export default function RelatoDetalle({ id, onFinish }: Props) {
       const docRef = doc(db, 'poemas', id);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        const data = docSnap.data();
+        const data = docSnap.data() as RelatoData;
         setTitulo(data.titulo);
         setUrl(data.url);
         const estrofas = data.texto.map((estrofa: string) => estrofa.split('<§>'));
@@ -58,7 +65,6 @@ export default function RelatoDetalle({ id, onFinish }: Props) {
     container.scrollTop += offset - middle + cursor.offsetHeight / 2;
   }, [visibleEstrofas, completo]);
 
-
   useEffect(() => {
     if (loading || texto.length === 0 || completo) return;
 
@@ -66,49 +72,57 @@ export default function RelatoDetalle({ id, onFinish }: Props) {
     const currentVerso = currentEstrofa?.[versoIndex] ?? "";
 
     if (charIndex < currentVerso.length) {
-        const timer = setTimeout(() => {
+      const timer = setTimeout(() => {
         const updated = [...visibleEstrofas];
         updated[estrofaIndex] = [...updated[estrofaIndex]];
         updated[estrofaIndex][versoIndex] = currentVerso.slice(0, charIndex + 1);
         setVisibleEstrofas(updated);
         setCharIndex((i) => i + 1);
-        }, 40);
-        return () => clearTimeout(timer);
+      }, 40);
+      return () => clearTimeout(timer);
     } else {
-        if (versoIndex < currentEstrofa.length - 1) {
+      if (versoIndex < currentEstrofa.length - 1) {
         const pause = setTimeout(() => {
-            const updated = [...visibleEstrofas];
-            updated[estrofaIndex][versoIndex + 1] = "";
-            setVisibleEstrofas(updated);
-            setVersoIndex((v) => v + 1);
-            setCharIndex(0);
+          const updated = [...visibleEstrofas];
+          updated[estrofaIndex][versoIndex + 1] = "";
+          setVisibleEstrofas(updated);
+          setVersoIndex((v) => v + 1);
+          setCharIndex(0);
         }, 300);
         return () => clearTimeout(pause);
-        } else if (estrofaIndex < texto.length - 1) {
+      } else if (estrofaIndex < texto.length - 1) {
         const longerPause = setTimeout(() => {
-            const updated = [...visibleEstrofas];
-            updated[estrofaIndex + 1] = [""];
-            setVisibleEstrofas(updated);
-            setEstrofaIndex((e) => e + 1);
-            setVersoIndex(0);
-            setCharIndex(0);
+          const updated = [...visibleEstrofas];
+          updated[estrofaIndex + 1] = [""];
+          setVisibleEstrofas(updated);
+          setEstrofaIndex((e) => e + 1);
+          setVersoIndex(0);
+          setCharIndex(0);
         }, 1200);
         return () => clearTimeout(longerPause);
-        } else {
-          setCompleto(true);
-          onFinish?.();
-          console.log("Fin del relato, mostrando UI final");
-        }
+      } else {
+        setCompleto(true);
+        onFinish?.();
+        console.log("Fin del relato, mostrando UI final");
+      }
     }
 
-    // Autoscroll después del procesamiento
     if (scrollRef.current && !completo) {
-        scrollRef.current.scrollTo({
+      scrollRef.current.scrollTo({
         top: scrollRef.current.scrollHeight,
         behavior: 'smooth',
-        });
+      });
     }
-    }, [charIndex, versoIndex, estrofaIndex, texto, loading, visibleEstrofas, completo, onFinish]);
+  }, [
+    charIndex,
+    versoIndex,
+    estrofaIndex,
+    texto,
+    loading,
+    visibleEstrofas,
+    completo,
+    onFinish,
+  ]);
 
   if (loading) return <p className="verso">Cargando relato...</p>;
 
@@ -149,8 +163,15 @@ export default function RelatoDetalle({ id, onFinish }: Props) {
           ))}
         </section>
       </div>
+
       {completo && url && (
-        <img src={url} alt={titulo} className="poema-imagen" />
+        <Image
+          src={url}
+          alt={titulo}
+          className="poema-imagen"
+          width={800}
+          height={600}
+        />
       )}
     </div>
   );
