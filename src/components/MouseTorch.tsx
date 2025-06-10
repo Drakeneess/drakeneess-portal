@@ -17,12 +17,13 @@ export default function MouseTorch() {
     <div
       className="pointer-events-none fixed inset-0 z-50"
       style={{
-        backgroundColor: 'rgba(0, 0, 0, 0.95)',
-        WebkitMaskImage: `radial-gradient(circle 250px at ${position.x}px ${position.y}px, transparent 0%, black 70%)`,
-        maskImage: `radial-gradient(circle 250px at ${position.x}px ${position.y}px, transparent 0%, black 70%)`,
-        WebkitMaskComposite: 'xor',
-        maskComposite: 'exclude',
+        backgroundColor: 'rgba(0, 0, 0, 0.87)',
+        maskImage: `radial-gradient(circle 300px at ${position.x}px ${position.y}px, transparent 0%, rgba(0,0,0,1) 70%)`,
+        WebkitMaskImage: `radial-gradient(circle 250px at ${position.x}px ${position.y}px, transparent 0%, rgba(0,0,0,1) 70%)`,
+        maskMode: 'alpha',
+        WebkitMaskComposite: 'destination-out', // Cambia aquí
         mixBlendMode: 'normal',
+        pointerEvents: 'none',
       }}
     />
   );
